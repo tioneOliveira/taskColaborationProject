@@ -63,9 +63,10 @@ class TeamToTaskController {
     const { id } = request.params;
     try {
       await database
-        .select("*")
-        .table("Team_Task")
-        .where({ id_task: id })
+        .select("Team.id_team", "Team.name_team")
+        .table("Team")
+        .innerJoin("Team_Task", "Team.id_team", "Team_Task.id_team")
+        .where({ "Team_Task.id_task": id })
         .then((teamsAssignedToATask) => {
           console.log(teamsAssignedToATask);
           response.status(200).json(teamsAssignedToATask);
@@ -83,9 +84,10 @@ class TeamToTaskController {
     const { id } = await request.params;
     try {
       await database
-        .select("*")
-        .table("Team_Task")
-        .where({ id_team: id })
+        .select("Task.id_task", "Task.name_task")
+        .table("Task")
+        .innerJoin("Team_Task", "Task.id_task", "Team_Task.id_task")
+        .where({ "Team_Task.id_team": id })
         .then((tasksAssignedToATeam) => {
           console.log(tasksAssignedToATeam);
           response.status(200).json(tasksAssignedToATeam);
