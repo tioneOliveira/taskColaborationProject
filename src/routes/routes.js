@@ -1,23 +1,24 @@
-const connection = require("../database/connection");
 const express = require("express");
+const TeamController = require("../controllers/TeamController");
+const UserController = require("../controllers/UserController");
+const TaskController = require("../controllers/TaskController");
+const AssignTarefasEquipeController = require("../controllers/AssignTarefasEquipesController");
+
 const router = express.Router();
-const EquipeController = require("../controllers/EquipeController");
-const ColaboradoresController = require("../controllers/ColaboradoresController");
-const TarefaController = require("../controllers/TarefaController");
 
-router.post("/equipes", EquipeController.novaEquipe);
-router.get("/equipes", EquipeController.listarEquipes);
-router.put("/equipes/:id", EquipeController.atualizarEquipe);
-router.delete("/equipes/:id", EquipeController.excluirEquipe);
+router.post("/team", TeamController.newTeam);
+router.get("/teams", TeamController.listAllTeams);
+router.put("/team/:id", TeamController.updateTeam);
+router.delete("/team/:id", TeamController.deleteTeam);
 
-router.post("/colaboradores", ColaboradoresController.novoColaborador);
-router.get("/colaboradores", ColaboradoresController.listarColaboradores);
-router.put("/colaboradores/:id", ColaboradoresController.atualizarColaborador);
-router.delete("/colaboradores/:id", ColaboradoresController.excluirColaborador);
+router.post("/user", UserController.newoUser);
+router.get("/users", UserController.listAllUsers);
+router.put("/user/:id", UserController.updateUser);
+router.delete("/user/:id", UserController.deleteUser);
 
-router.post("/tarefa", TarefaController.novaTarefa);
-router.get("/tarefa", TarefaController.listarTarefas);
-router.put("/tarefa/:id", TarefaController.atualizarTarefa);
-router.delete("/tarefa/:id", TarefaController.excluirTarefa);
+router.post("/task", TaskController.newTask);
+router.get("/tasks", TaskController.listAllTasks);
+router.put("/task/:id", TaskController.updateTask);
+router.delete("/task/:id", TaskController.deleteTask);
 
 module.exports = router;

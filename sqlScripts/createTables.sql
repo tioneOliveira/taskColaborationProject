@@ -1,60 +1,59 @@
-DROP TABLE IF EXISTS Equipe_Tarefa;
-DROP TABLE IF EXISTS Equipe_Colaborador;
-DROP TABLE IF EXISTS Tarefa;
-DROP TABLE IF EXISTS Colaborador;
-DROP TABLE IF EXISTS Equipe;
+DROP TABLE IF EXISTS Team_Task;
+DROP TABLE IF EXISTS Team_User;
+DROP TABLE IF EXISTS Task;
+DROP TABLE IF EXISTS User;
+DROP TABLE IF EXISTS Team;
 
-CREATE TABLE Equipe (
-    IDEquipe INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(100) NOT NULL,
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    DeletedAt TIMESTAMP NULL,
-    INDEX idx_equipe_nome (Nome)
+CREATE TABLE User (
+    id_user INT PRIMARY KEY AUTO_INCREMENT,
+    email_user VARCHAR(100) CHECK (email_user REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') NOT NULL,
+    password_user VARCHAR(20) NOT NULL,
+    name_user VARCHAR(100) DEFAULT "nameless",
+    role_user VARCHAR(100) DEFAULT "Intern",
+    permission_user VARCHAR(20) CHECK (permission_user IN ('None', 'Team Manager', 'Admin')) DEFAULT 'None',
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP DEFAULT NULL,
+    INDEX idx_name_user (name_user)
 );
 
-CREATE TABLE Colaborador (
-    IDColab INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(100) NOT NULL,
-    Cargo VARCHAR(100) DEFAULT "Sem cargo definido",
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    DeletedAt TIMESTAMP NULL,
-    INDEX idx_colab_nome (Nome)
+CREATE TABLE Team (
+    id_team INT PRIMARY KEY AUTO_INCREMENT,
+    name_team VARCHAR(100) NOT NULL,
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP DEFAULT NULL,
+    INDEX idx_team_name (name_team)
 );
 
-
-
-CREATE TABLE Tarefa (
-    TarefaID INT PRIMARY KEY AUTO_INCREMENT,
-    Nome VARCHAR(100) NOT NULL,
-    StatusTarefa VARCHAR(50) CHECK (StatusTarefa IN ('Em andamento', 'Atrasada', 'Programada', 'Entregue', 'Cancelada')),
-    CreatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    UpdatedAt TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
-    DeletedAt TIMESTAMP NULL,
-    StartTask TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
-    Deadline TIMESTAMP,
-    Descricao TEXT,
-    INDEX idx_tarefa_status (StatusTarefa)
+CREATE TABLE Task (
+    id_task INT PRIMARY KEY AUTO_INCREMENT,
+    name_task VARCHAR(100) NOT NULL,
+    status_task VARCHAR(50) CHECK (status_task IN ('Ongoing', 'Late', 'Programmed', 'Delivered', 'Cancelled')),
+    created_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    updated_at TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
+    deleted_at TIMESTAMP DEFAULT NULL,
+    start_task TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    deadline_task TIMESTAMP DEFAULT NULL,
+    description_task TEXT
 );
 
-
-CREATE TABLE Equipe_Colaborador (
-    IDEquipe INT NOT NULL,
-    IDColab INT NOT NULL,
-    PRIMARY KEY (IDEquipe, IDColab),
-    FOREIGN KEY (IDEquipe) REFERENCES Equipe(IDEquipe),
-    FOREIGN KEY (IDColab) REFERENCES Colaborador(IDColab),
-    INDEX idx_equipe_colab_idtime (IDEquipe),
-    INDEX idx_equipe_colab_idcolab (IDColab)
+CREATE TABLE Team_User (
+    id_team INT NOT NULL,
+    id_user INT NOT NULL,
+    PRIMARY KEY (id_team, id_user),
+    FOREIGN KEY (id_team) REFERENCES Team(id_team),
+    FOREIGN KEY (id_user) REFERENCES User(id_user),
+    INDEX idx_team_user_id_team (id_team),
+    INDEX idx_team_user_id_user (id_user)
 );
 
-CREATE TABLE Equipe_Tarefa (
-    IDEquipe INT NOT NULL,
-    TarefaID INT NOT NULL,
-    PRIMARY KEY (IDEquipe, TarefaID),
-    FOREIGN KEY (IDEquipe) REFERENCES Equipe(IDEquipe),
-    FOREIGN KEY (TarefaID) REFERENCES Tarefa(TarefaID),
-    INDEX idx_equipe_tarefa_idequipe (IDEquipe),
-    INDEX idx_equipe_tarefa_tarefaid (TarefaID)
+CREATE TABLE Team_Task (
+    id_team INT NOT NULL,
+    id_task INT NOT NULL,
+    PRIMARY KEY (id_team, id_task),
+    FOREIGN KEY (id_team) REFERENCES Team(id_team),
+    FOREIGN KEY (id_task) REFERENCES Task(id_task),
+    INDEX idx_team_task_id_team (id_team),
+    INDEX idx_team_task_id_task (id_task)
 );

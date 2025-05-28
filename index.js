@@ -10,7 +10,7 @@ app.use(express.json());
 app.use(router);
 
 app.listen(listeningToPort, () => {
-  console.log("Aplicação rodando na porta: " + listeningToPort);
+  console.log("Aplication running on port: " + listeningToPort);
 });
 
 app.get("/", (request, response) => {
