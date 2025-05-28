@@ -40,6 +40,23 @@ class TaskController {
     }
   }
 
+  async listTask(request, response) {
+    const { id } = await request.params;
+    try {
+      await database
+        .select("*")
+        .table("Task")
+        .where({ id_task: id })
+        .then((task) => {
+          console.log(task);
+          response.status(200).json(task);
+        });
+    } catch (error) {
+      console.log("Something went wrong when listing the task!", error);
+      response.status(500).json({ error: error.message });
+    }
+  }
+
   async updateTask(request, response) {
     const { id } = await request.params;
     const { name, description, status, start, deadline } = await request.body;

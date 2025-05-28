@@ -1,7 +1,7 @@
 const database = require("../database/connection");
 
 class UserController {
-  async newoUser(request, response) {
+  async newUser(request, response) {
     try {
       const { name, email, password, role } = await request.body;
       await database
@@ -34,6 +34,23 @@ class UserController {
         });
     } catch (error) {
       console.log("Something went wrong when listing all users", error);
+      response.status(500).json({ error: error.message });
+    }
+  }
+
+  async listUser(request, response) {
+    const { id } = await request.params;
+    try {
+      await database
+        .select("*")
+        .table("User")
+        .where({ id_user: id })
+        .then((user) => {
+          console.log(user);
+          response.status(200).json(user);
+        });
+    } catch (error) {
+      console.log("Something went wrong when listing the user!", error);
       response.status(500).json({ error: error.message });
     }
   }

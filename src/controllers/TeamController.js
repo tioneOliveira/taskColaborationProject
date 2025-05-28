@@ -29,7 +29,24 @@ class TeamController {
           response.status(200).json(teams);
         });
     } catch (error) {
-      console.log("Something went wrong at listing all the teams!", error);
+      console.log("Something went wrong when listing all the teams!", error);
+      response.status(500).json({ error: error.message });
+    }
+  }
+
+  async listTeam(request, response) {
+    const { id } = await request.params;
+    try {
+      await database
+        .select("*")
+        .table("Team")
+        .where({ id_team: id })
+        .then((team) => {
+          console.log(team);
+          response.status(200).json(team);
+        });
+    } catch (error) {
+      console.log("Something went wrong when listing the team!", error);
       response.status(500).json({ error: error.message });
     }
   }
