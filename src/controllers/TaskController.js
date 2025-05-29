@@ -109,6 +109,47 @@ class TaskController {
       response.status(500).json({ error: error.message });
     }
   }
+
+  async assignTaskToTeam(resquest, response) {
+    const { team, task } = resquest.params;
+
+    try {
+      await database
+        .table("Team")
+        .where({ id_team: team, deleted_at_team: null })
+        .then((team) => {
+          if (team.length === 0) {
+            return response.status(404).json({ error: "Team not found!" });
+          }
+        });
+
+      await database
+        .table("Task")
+        .where({ id_task: task, deleted_at_task: null })
+        .then((task) => {
+          if (task.length === 0) {
+            return response.status(404).json({ error: "Task not found!" });
+          }
+        });
+
+      await database
+        .table("Task")
+        .where({ id_task: task })
+        .update({ id_team_task: team })
+        .then((taskAssignedToTeam) => {
+          console.log(taskAssignedToTeam);
+          response
+            .status(201)
+            .json({ message: "Task assigned to team successfuly!" });
+        });
+    } catch (error) {
+      console.log(
+        "Something went wrong when assigning a task to a team!",
+        error
+      );
+      response.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new TaskController();

@@ -109,6 +109,96 @@ class UserController {
       response.status(500).json({ error: error.message });
     }
   }
+
+  async assignUserToTeam(resquest, response) {
+    const { team, user } = resquest.params;
+
+    try {
+      await database
+        .table("Team")
+        .where({ id_team: team, deleted_at_team: null })
+        .then((team) => {
+          if (team.length === 0) {
+            return response.status(404).json({ error: "Team not found!" });
+          }
+        });
+
+      await database
+        .table("User")
+        .where({ id_user: user, deleted_at_user: null })
+        .then((user) => {
+          if (user.length === 0) {
+            return response.status(404).json({ error: "User not found!" });
+          }
+        });
+
+      await database
+        .table("User")
+        .where({ id_user: user })
+        .update({ id_team_user: team })
+        .then((userAssignedToTeam) => {
+          console.log(userAssignedToTeam);
+          response
+            .status(201)
+            .json({ message: "User assigned to team successfuly!" });
+        });
+    } catch (error) {
+      console.log(
+        "Something went wrong when assigning a user to a team!",
+        error
+      );
+      response.status(500).json({ error: error.message });
+    }
+  }
+
+  async assignUserWithTask(request, response) {
+    const { user, task } = request.params;
+    try {
+      await database
+        .table("User")
+        .where({ id_user: user, deleted_at_user: null })
+        .then((user) => {
+          if (user.length === 0) {
+            return response.status(404).json({ error: "User not found!" });
+          }
+        });
+
+      await database
+        .table("Task")
+        .where({ id_task: task, deleted_at_task: null })
+        .then((task) => {
+          if (task.length === 0) {
+            return response.status(404).json({ error: "Task not found!" });
+          }
+        });
+
+      await database
+        .select("id_user")
+        .table("User")
+        .join("Task", "User.id_team_user", "Task.id_team_task")
+        .where({ "User.id_user": user, "Task.id_task": task })
+        .then((userTaskBelongsTeam) => {
+          if (userTaskBelongsTeam.length === 0) {
+            return response.status(404).json({
+              error: "User and task doesn't belongs to the same team!",
+            });
+          }
+        });
+
+      await database
+        .insert({ id_user: user, id_task: task })
+        .into("User_Task")
+        .then((taskAssignedToUser) => {
+          console.log(taskAssignedToUser);
+          response
+            .status(201)
+            .json({ message: "User successfully assigned to do task" });
+        });
+    } catch (error) {
+      console.log("Something went wrong when assigning user with task!", error);
+      response.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new UserController();

@@ -101,6 +101,72 @@ class TeamController {
       response.status(500).json({ error: error.message });
     }
   }
+
+  async listUsersInTeam(request, response) {
+    const { id } = request.params;
+    try {
+      await database
+        .table("Team")
+        .where({ id_team: id, deleted_at_team: null })
+        .then((team) => {
+          if (team.length === 0) {
+            return response.status(404).json({ error: "Team not found!" });
+          }
+        });
+
+      await database
+        .table("User")
+        .where({ id_team_user: id, deleted_at_user: null })
+        .then((usersInTeam) => {
+          if (usersInTeam.length === 0) {
+            return response
+              .status(404)
+              .json({ error: "There are no users in the team!" });
+          }
+          console.log(usersInTeam);
+          response.status(200).json(usersInTeam);
+        });
+    } catch (error) {
+      console.log(
+        "Something went wrong when listing the users in the team!",
+        error
+      );
+      response.status(500).json({ error: error.message });
+    }
+  }
+
+  async listTasksInTeam(request, response) {
+    const { id } = request.params;
+    try {
+      await database
+        .table("Team")
+        .where({ id_team: id, deleted_at_team: null })
+        .then((team) => {
+          if (team.length === 0) {
+            return response.status(404).json({ error: "Team not found!" });
+          }
+        });
+
+      await database
+        .table("Task")
+        .where({ id_team_task: id, deleted_at_task: null })
+        .then((tasksInTeam) => {
+          if (tasksInTeam.length === 0) {
+            return response
+              .status(404)
+              .json({ error: "There are no tasks in the team!" });
+          }
+          console.log(tasksInTeam);
+          response.status(200).json(tasksInTeam);
+        });
+    } catch (error) {
+      console.log(
+        "Something went wrong when listing the tasks in the team!",
+        error
+      );
+      response.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new TeamController();
