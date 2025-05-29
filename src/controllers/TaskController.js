@@ -2,7 +2,7 @@ const database = require("../database/connection");
 
 class TaskController {
   async newTask(request, response) {
-    const { name, description, status, start, deadline } = await request.body;
+    const { name, description, status, start, deadline } = request.body;
 
     try {
       await database
@@ -27,10 +27,12 @@ class TaskController {
   async listAllTasks(request, response) {
     try {
       await database
-        .select("*")
         .table("Task")
-        .where({ deleted_at: null })
+        .where({ deleted_at_task: null })
         .then((tasks) => {
+          if (tasks.length === 0) {
+            return response.status(404).json({ error: "There are no tasks!" });
+          }
           console.log(tasks);
           response.status(200).json(tasks);
         });
@@ -41,13 +43,15 @@ class TaskController {
   }
 
   async listTask(request, response) {
-    const { id } = await request.params;
+    const { id } = request.params;
     try {
       await database
-        .select("*")
         .table("Task")
-        .where({ id_task: id })
+        .where({ id_task: id, deleted_at_task: null })
         .then((task) => {
+          if (task.length === 0) {
+            return response.status(404).json({ error: "Task not found!" });
+          }
           console.log(task);
           response.status(200).json(task);
         });
@@ -58,25 +62,25 @@ class TaskController {
   }
 
   async updateTask(request, response) {
-    const { id } = await request.params;
-    const { name, description, status, start, deadline } = await request.body;
+    const { id } = request.params;
+    const { name, description, status, start, deadline } = request.body;
 
-    const updatedTask = {};
-    if (name) updatedTask.name_task = name;
-    if (description) updatedTask.description_task = description;
-    if (status) updatedTask.status_task = status;
-    if (start) updatedTask.start_task = start;
-    if (deadline) updatedTask.deadline_task = deadline;
-    if (Object.keys(updatedTask).length === 0) {
+    const updateTask = {};
+    if (name) updateTask.name_task = name;
+    if (description) updateTask.description_task = description;
+    if (status) updateTask.status_task = status;
+    if (start) updateTask.start_task = start;
+    if (deadline) updateTask.deadline_task = deadline;
+    if (Object.keys(updateTask).length === 0) {
       return response.status(400).json({ error: "No data to update!" });
     }
     try {
       await database
         .table("Task")
-        .where({ id_task: id })
-        .update(updatedTask)
-        .then((rowsAffected) => {
-          if (rowsAffected === 0) {
+        .where({ id_task: id, deleted_at_task: null })
+        .update(updateTask)
+        .then((updatedTask) => {
+          if (updatedTask === 0) {
             return response.status(404).json({ error: "Task not found!" });
           }
           response.status(200).json({ message: "Task updated successfuly!" });
@@ -88,14 +92,14 @@ class TaskController {
   }
 
   async deleteTask(request, response) {
-    const { id } = await request.params;
+    const { id } = request.params;
     try {
       await database
         .table("Task")
-        .where({ id_task: task - id, deleted_at: null })
-        .update({ deleted_at: database.fn.now() })
-        .then((rowsAffected) => {
-          if (rowsAffected === 0) {
+        .where({ id_task: id, deleted_at_task: null })
+        .update({ deleted_at_task: database.fn.now() })
+        .then((deletedTask) => {
+          if (deletedTask === 0) {
             return response.status(404).json({ error: "Task not found!" });
           }
           response.status(200).json({ message: "Task deleted successfuly!" });

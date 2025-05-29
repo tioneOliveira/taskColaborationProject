@@ -3,7 +3,7 @@ const database = require("../database/connection");
 class UserController {
   async newUser(request, response) {
     try {
-      const { name, email, password, role } = await request.body;
+      const { name, email, password, role } = request.body;
       await database
         .insert({
           name_user: name,
@@ -17,7 +17,7 @@ class UserController {
           response.status(201).json({ message: "User created successfuly!" });
         });
     } catch (error) {
-      console.log("Something went wrong when creating a new user", error);
+      console.log("Something went wrong when creating a new user!", error);
       response.status(500).json({ error: error.message });
     }
   }
@@ -25,27 +25,31 @@ class UserController {
   async listAllUsers(request, response) {
     try {
       await database
-        .select("*")
         .table("User")
-        .where({ deleted_at: null })
+        .where({ deleted_at_user: null })
         .then((user) => {
+          if (user.length === 0) {
+            return response.status(404).json({ error: "There are no users!" });
+          }
           console.log(user);
           response.status(200).json(user);
         });
     } catch (error) {
-      console.log("Something went wrong when listing all users", error);
+      console.log("Something went wrong when listing all users!", error);
       response.status(500).json({ error: error.message });
     }
   }
 
   async listUser(request, response) {
-    const { id } = await request.params;
+    const { id } = request.params;
     try {
       await database
-        .select("*")
         .table("User")
-        .where({ id_user: id })
+        .where({ id_user: id, deleted_at_user: null })
         .then((user) => {
+          if (user.length === 0) {
+            return response.status(404).json({ error: "User not found!" });
+          }
           console.log(user);
           response.status(200).json(user);
         });
@@ -56,26 +60,26 @@ class UserController {
   }
 
   async updateUser(request, response) {
-    const { id } = await request.params;
-    const { name, role, email, password, permission } = await request.body;
+    const { id } = request.params;
+    const { name, role, email, password, permission } = request.body;
 
-    const updatedUser = {};
-    if (name) updatedUser.name_user = name;
-    if (role) updatedUser.role_user = role;
-    if (email) updatedUser.email_user = email;
-    if (password) updatedUser.password_user = password;
-    if (permission) updatedUser.permission_user = permission;
-    if (Object.keys(updatedUser).length === 0) {
+    const updateUser = {};
+    if (name) updateUser.name_user = name;
+    if (role) updateUser.role_user = role;
+    if (email) updateUser.email_user = email;
+    if (password) updateUser.password_user = password;
+    if (permission) updateUser.permission_user = permission;
+    if (Object.keys(updateUser).length === 0) {
       return response.status(400).json({ error: "No data to update!" });
     }
 
     try {
       await database
         .table("User")
-        .where({ id_user: id })
-        .update(updatedUser)
-        .then((rowsAffected) => {
-          if (rowsAffected === 0) {
+        .where({ id_user: id, deleted_at_user: null })
+        .update(updateUser)
+        .then((updatedUser) => {
+          if (updatedUser === 0) {
             return response.status(404).json({ error: "User not found!" });
           }
           response.status(200).json({ message: "User updated successfuly!" });
@@ -87,15 +91,15 @@ class UserController {
   }
 
   async deleteUser(request, response) {
-    const { id } = await request.params;
+    const { id } = request.params;
 
     try {
       await database
         .table("User")
-        .where({ id_user: id, deleted_at: null })
-        .update({ deleted_at: database.fn.now() })
-        .then((rowsAffected) => {
-          if (rowsAffected === 0) {
+        .where({ id_user: id, deleted_at_user: null })
+        .update({ deleted_at_user: database.fn.now() })
+        .then((deletedUser) => {
+          if (deletedUser === 0) {
             return response.status(404).json({ error: "User not found!" });
           }
           response.status(200).json({ message: "User deleted successfuly!" });

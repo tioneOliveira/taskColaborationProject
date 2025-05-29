@@ -1,4 +1,5 @@
 require("dotenv").config();
+
 const client = process.env.DATABASE_CLIENT;
 const host = process.env.DATABASE_HOST;
 const user = process.env.DATABASE_USER;

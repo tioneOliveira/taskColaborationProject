@@ -2,7 +2,7 @@ const database = require("../database/connection");
 
 class TeamController {
   async newTeam(request, response) {
-    const { name } = await request.body;
+    const { name } = request.body;
 
     try {
       await database
@@ -21,10 +21,12 @@ class TeamController {
   async listAllTeams(request, response) {
     try {
       await database
-        .select("*")
         .table("Team")
-        .where({ deleted_at: null })
+        .where({ deleted_at_team: null })
         .then((teams) => {
+          if (teams.length === 0) {
+            return response.status(404).json({ error: "There are no teams!" });
+          }
           console.log(teams);
           response.status(200).json(teams);
         });
@@ -35,13 +37,15 @@ class TeamController {
   }
 
   async listTeam(request, response) {
-    const { id } = await request.params;
+    const { id } = request.params;
     try {
       await database
-        .select("*")
         .table("Team")
-        .where({ id_team: id })
+        .where({ id_team: id, deleted_at_team: null })
         .then((team) => {
+          if (team.length === 0) {
+            return response.status(404).json({ error: "Team not found!" });
+          }
           console.log(team);
           response.status(200).json(team);
         });
@@ -52,22 +56,22 @@ class TeamController {
   }
 
   async updateTeam(request, response) {
-    const { id } = await request.params;
-    const { name } = await request.body;
+    const { id } = request.params;
+    const { name } = request.body;
 
-    const updatedTeam = {};
-    if (name) updatedTeam.name_team = name;
-    if (Object.keys(updatedTeam).length === 0) {
+    const updateTeam = {};
+    if (name) updateTeam.name_team = name;
+    if (Object.keys(updateTeam).length === 0) {
       return response.status(400).json({ error: "No data to update!" });
     }
 
     try {
       await database
         .table("Team")
-        .where({ id_team: id })
-        .update(updatedTeam)
-        .then((rowsAffected) => {
-          if (rowsAffected === 0) {
+        .where({ id_team: id, deleted_at_team: null })
+        .update(updateTeam)
+        .then((updatedTeam) => {
+          if (updatedTeam === 0) {
             return response.status(404).json({ error: "Team not found!" });
           }
           response.status(200).json({ message: "Team updated successfuly!" });
@@ -79,15 +83,15 @@ class TeamController {
   }
 
   async deleteTeam(request, response) {
-    const { id } = await request.params;
+    const { id } = request.params;
 
     try {
       await database
         .table("Team")
-        .where({ id_team: id, deleted_at: null })
-        .update({ deleted_at: database.fn.now() })
-        .then((rowsAffected) => {
-          if (rowsAffected === 0) {
+        .where({ id_team: id, deleted_at_team: null })
+        .update({ deleted_at_team: database.fn.now() })
+        .then((deletedTeam) => {
+          if (deletedTeam === 0) {
             return response.status(404).json({ error: "Team not found!" });
           }
           response.status(200).json({ message: "Team deleted successfuly!" });
