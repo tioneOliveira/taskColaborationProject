@@ -199,6 +199,31 @@ class UserController {
       response.status(500).json({ error: error.message });
     }
   }
+
+  async listTasksAssignedToUser(request, response) {
+    const { id } = request.params;
+    try {
+      await database
+        .table("Task")
+        .join("User_Task", "Task.id_task", "User_Task.id_Task")
+        .where({ "User_Task.id_user": id })
+        .then((tasksAssignedToUser) => {
+          if (tasksAssignedToUser.length === 0) {
+            return response
+              .status(404)
+              .json({ error: "There are no tasks assigned to this user" });
+          }
+          console.log(tasksAssignedToUser);
+          response.status(500).json(tasksAssignedToUser);
+        });
+    } catch (error) {
+      console.log(
+        "Something went wrong when listing the tasks assigned to this user!",
+        error
+      );
+      response.status(500).json({ error: error.message });
+    }
+  }
 }
 
 module.exports = new UserController();

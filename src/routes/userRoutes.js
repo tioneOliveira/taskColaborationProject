@@ -9,6 +9,7 @@ userRouter.put("/user/:id", UserController.updateUser);
 userRouter.put("/user/:user/task/:task", UserController.assignUserWithTask);
 userRouter.get("/user/:id", UserController.listUser);
 userRouter.get("/users", UserController.listAllUsers);
+userRouter.get("/user/:id/tasks", UserController.listTasksAssignedToUser);
 userRouter.delete("/user/:id", UserController.deleteUser);
 
 module.exports = userRouter;
