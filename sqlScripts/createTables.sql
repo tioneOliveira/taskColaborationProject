@@ -1,5 +1,5 @@
-DROP TABLE IF EXISTS Team_Task;
 DROP TABLE IF EXISTS User_Task;
+DROP TABLE IF EXISTS Team_Task;
 DROP TABLE IF EXISTS Task;
 DROP TABLE IF EXISTS User;
 DROP TABLE IF EXISTS Team;
@@ -16,15 +16,16 @@ CREATE TABLE Team (
 CREATE TABLE User (
     id_user INT PRIMARY KEY AUTO_INCREMENT,
     email_user VARCHAR(100) CHECK (email_user REGEXP '^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$') NOT NULL,
-    password_user VARCHAR(20) NOT NULL,
+    password_user VARCHAR(100) NOT NULL,
     name_user VARCHAR(100) DEFAULT "nameless",
     role_user VARCHAR(100) DEFAULT "Intern",
     id_team_user INT,
-    permission_user VARCHAR(20) CHECK (permission_user IN ('None', 'Team Manager', 'Admin')) DEFAULT 'None',
+    permission_user VARCHAR(20) CHECK (permission_user IN ('None', 'Manager', 'Admin')) DEFAULT 'None',
     created_at_user TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at_user TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at_user TIMESTAMP DEFAULT NULL,
-    FOREIGN KEY (id_team_user) REFERENCES Team(id_team)
+    FOREIGN KEY (id_team_user) REFERENCES Team(id_team),
+    UNIQUE (email_user)
 );
 
 CREATE TABLE Task (
