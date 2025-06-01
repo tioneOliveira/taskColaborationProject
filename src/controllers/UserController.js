@@ -228,7 +228,7 @@ class UserController {
       }
 
       console.log(tasksAssignedToUser);
-      return response.status(500).json(tasksAssignedToUser);
+      return response.status(201).json(tasksAssignedToUser);
     } catch (error) {
       console.log(
         "Something went wrong when listing the tasks assigned to this user!",
