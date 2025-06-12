@@ -1,5 +1,9 @@
 const express = require("express");
+<<<<<<< Updated upstream
 const TeamController = require("../../../controllers/TeamController");
+=======
+const TeamController = require("../../../controllers/Team/TeamController");
+>>>>>>> Stashed changes
 const freeAuth = require("../../../middlewares/freeAuth.js");
 const roleAuth = require("../../../middlewares/roleAuth.js");
 const teamRouter = express.Router();
