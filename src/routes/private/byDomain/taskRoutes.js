@@ -1,12 +1,5 @@
 const express = require("express");
-<<<<<<< Updated upstream
-const TaskController = require("../../../controllers/TaskController");
-=======
 const TaskController = require("../../../controllers/Task/TaskController");
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 const freeAuth = require("../../../middlewares/freeAuth.js");
 const roleAuth = require("../../../middlewares/roleAuth.js");
 const taskRouter = express.Router();
@@ -44,5 +37,7 @@ taskRouter.get(
   roleAuth("Admin", "Maneger", "None"),
   TaskController.listTask
 );
+
+module.exports = taskRouter;
 
 module.exports = taskRouter;
