@@ -24,8 +24,7 @@ CREATE TABLE User (
     created_at_user TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
     updated_at_user TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP,
     deleted_at_user TIMESTAMP DEFAULT NULL,
-    FOREIGN KEY (id_team_user) REFERENCES Team(id_team),
-    UNIQUE (email_user)
+    FOREIGN KEY (id_team_user) REFERENCES Team(id_team)
 );
 
 CREATE TABLE Task (

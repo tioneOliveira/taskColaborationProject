@@ -1,5 +1,5 @@
 const express = require("express");
-const TeamController = require("../../../controllers/TeamController");
+const TeamController = require("../../../controllers/Team/TeamController");
 const teamRouter = express.Router();
 
 teamRouter.post("/team", TeamController.newTeam);
