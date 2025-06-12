@@ -2,6 +2,7 @@ const bcrypt = require("bcrypt");
 const UserRepository = require("../../model/UserRepository");
 const TeamRepository = require("../../model/TeamRepository");
 const TaskRepository = require("../../model/TaskRepository");
+const EmailService = require("../../utils/mailer");
 
 class UserService {
   async createUser({ name, email, password, role, permission }) {
@@ -64,6 +65,11 @@ class UserService {
     if (!sameTeam) return { error: "DIFFERENT_TEAMS" };
 
     await UserRepository.linkUserTask(userId, taskId);
+    await EmailService(
+      user.email_user,
+      "Nova Tarefa Atribuída",
+      `Olá ${user.name_user},\n\nVocê recebeu uma nova tarefa: ${task.name_task}\n\nDescrição: ${task.description_task}\n\nBoa sorte!`
+    );
     return { success: true };
   }
 
