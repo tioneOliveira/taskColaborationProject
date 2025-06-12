@@ -3,6 +3,9 @@ const express = require("express");
 const TeamController = require("../../../controllers/TeamController");
 =======
 const TeamController = require("../../../controllers/Team/TeamController");
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 const freeAuth = require("../../../middlewares/freeAuth.js");
 const roleAuth = require("../../../middlewares/roleAuth.js");
