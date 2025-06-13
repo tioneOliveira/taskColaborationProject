@@ -21,7 +21,6 @@ const freeAuth = (request, response, next) => {
       return response.status(401).json({ error: error.message });
     }
 
-    console.log(token);
     next();
   } catch (error) {
     console.log(

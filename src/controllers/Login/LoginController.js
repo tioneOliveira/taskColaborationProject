@@ -18,7 +18,7 @@ class LoginController {
           .json({ error: "Wrong password, access denied!" });
       }
 
-      return res.status(200).json({ token: result.token });
+      return res.status(200).json({ token: result.token, user: result.user });
     } catch (err) {
       console.error("Error during login:", err);
       return res.status(500).json({ error: err.message });

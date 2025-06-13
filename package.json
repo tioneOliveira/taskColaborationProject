@@ -1,10 +1,11 @@
 {
   "name": "taskmanagementengsoft2",
   "version": "1.0.0",
-  "main": "index.js",
+  "main": "server.js",
+  "type": "commonjs",
   "scripts": {
-    "start": "nodemon index.js",
-    "test": "echo \"Error: no test specified\" && exit 1"
+    "start": "nodemon server.js",
+    "test": "nodemon jest"
   },
   "keywords": [],
   "author": "",
@@ -20,5 +21,9 @@
     "mysql2": "^3.14.1",
     "nodemailer": "^7.0.3",
     "nodemon": "^3.1.10"
+  },
+  "devDependencies": {
+    "jest": "^30.0.0",
+    "supertest": "^7.1.1"
   }
 }

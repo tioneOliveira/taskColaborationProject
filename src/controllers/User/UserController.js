@@ -85,7 +85,6 @@ class UserController {
     }
   }
 
-  /* ---------- relações ---------- */
   async assignUserToTeam(req, res) {
     try {
       const { team, user } = req.params;
@@ -122,6 +121,7 @@ class UserController {
           error: "User and task do not belong to the same team!",
         });
       }
+
       return res
         .status(201)
         .json({ message: "User assigned to task successfully!" });

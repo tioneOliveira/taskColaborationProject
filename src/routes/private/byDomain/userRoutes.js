@@ -24,6 +24,7 @@ userRouter.put(
   roleAuth("Admin", "Maneger"),
   UserController.updateUser
 );
+
 userRouter.put(
   "/user/:user/task/:task",
   freeAuth,

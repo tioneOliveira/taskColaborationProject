@@ -39,5 +39,3 @@ taskRouter.get(
 );
 
 module.exports = taskRouter;
-
-module.exports = taskRouter;
