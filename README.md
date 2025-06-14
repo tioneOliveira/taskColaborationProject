@@ -55,12 +55,33 @@ npm install
 
 ### Environment Configuration
 
-Create a `.env` file at the root with the following content:
+Create a `.env` file at the project root. Example:
 
 ```env
 LISTENING_TO_PORT=3000
 NODE_ENV=development
+JWT_SECRET_KEY=yourJWTSecret
+DATABASE_CLIENT=mysql
+DATABASE_HOST=localhost
+DATABASE_USER=root
+DATABASE_PASSWORD=your_db_password
+DATABASE_NAME=task_db
+EMAIL_USER=your_email@gmail.com
+EMAIL_PASSWORD=your_email_password
 ```
+
+**Variables**
+
+- `LISTENING_TO_PORT` – Port where the server listens.
+- `NODE_ENV` – Node environment (e.g., `development`).
+- `JWT_SECRET_KEY` – Secret key used to sign JWTs.
+- `DATABASE_CLIENT` – Knex client name (`mysql`, `pg`, etc.).
+- `DATABASE_HOST` – Database host address.
+- `DATABASE_USER` – Database username.
+- `DATABASE_PASSWORD` – Database user password.
+- `DATABASE_NAME` – Name of the database schema.
+- `EMAIL_USER` – Email address used by the mailer.
+- `EMAIL_PASSWORD` – Password or app password for the mailer account.
 
 ---
 
