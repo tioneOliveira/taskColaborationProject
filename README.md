@@ -14,6 +14,7 @@
 - [Getting Started](#getting-started)
   - [Prerequisites](#prerequisites)
   - [Installation](#installation)
+  - [Environment Configuration](#environment-configuration)
   - [Usage](#usage)
   - [Testing](#testing)
 - [API Documentation](#api-documentation)
@@ -52,6 +53,17 @@ cd taskcolaborationproject
 npm install
 ```
 
+### Environment Configuration
+
+Create a `.env` file at the root with the following content:
+
+```env
+LISTENING_TO_PORT=3000
+NODE_ENV=development
+```
+
+---
+
 ### Usage
 
 ```bash
@@ -59,6 +71,11 @@ npm start
 ```
 
 Then visit: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+
+> On `npm start`, Swagger documentation is auto-generated via [swagger-autogen](https://github.com/davibaltar/swagger-autogen).
+> You don't need to manually edit `swagger_output.json`.
+
+---
 
 ### Testing
 
@@ -72,8 +89,8 @@ npm test
 
 Access the live interactive documentation:
 
-- [Swagger UI](./swagger_ui.html)
-- [OpenAPI JSON](./updated_swagger.json)
+- [Swagger UI](http://localhost:3000/api-docs)
+- [OpenAPI JSON](./swagger_output.json)
 
 ---
 
@@ -146,7 +163,7 @@ graph TD
   User[userRouter]
   Task[taskRouter]
   Team[teamRouter]
-  Swagger[swagger.json]
+  Swagger[swagger_output.json]
   Controller[Controllers]
   DB[(MySQL via Knex)]
 
