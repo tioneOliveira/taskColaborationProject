@@ -1,6 +1,6 @@
 const fs = require("fs");
 const path = require("path");
-const db = require("../src/database/connection.js");
+const db = require("../database/connection.js");
 
 async function runSqlFile(filePath) {
   try {
@@ -16,7 +16,6 @@ async function runSqlFile(filePath) {
       await db.raw(query);
     }
 
-    console.log(`✅ SQL executado com sucesso a partir de: ${filePath}`);
     await db.destroy();
   } catch (err) {
     console.error("❌ Erro ao executar SQL:", err);

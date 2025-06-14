@@ -5,7 +5,7 @@ const roleAuth = require("../../../middlewares/roleAuth.js");
 const userRouter = express.Router();
 
 // Cria novo usuario
-userRouter.post("/user", UserController.newUser);
+userRouter.post("/user", freeAuth, roleAuth("Admin"), UserController.newUser);
 
 // Coloca um usuario em um time
 userRouter.put(

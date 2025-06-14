@@ -5,7 +5,6 @@
   "type": "commonjs",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "jest",
     "test:task": "jest tests/task.test.js",
     "test:team": "jest tests/team.test.js",
     "test:user": "jest tests/user.test.js",
@@ -13,9 +12,9 @@
     "test:user_team": "jest tests/user_team.test.js",
     "test:user_task": "jest tests/user_task.test.js",
     "test:task_team": "jest tests/task_team.test.js",
-    "test:all": "powershell -ExecutionPolicy Bypass -File scripts/AllTests.ps1",
-    "formatApi": "powershell -ExecutionPolicy Bypass -File scripts/FormatApi.ps1",
-    "sql:init": "node utils/resetDB.js"
+    "format": "node src/utils/resetDB.js",
+    "populate": "node src/utils/populateDatabase.js",
+    "test:all": "powershell -ExecutionPolicy Bypass -File scripts/AllTests.ps1"
   },
   "keywords": [],
   "author": "Gabriel Hartmann, Nicolas Donato, Tione Oliveira",

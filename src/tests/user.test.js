@@ -1,21 +1,19 @@
 const request = require("supertest");
 const app = require("../../app.js");
 const db = require("../database/connection.js");
+const UserService = require("../controllers/User/UserServices");
 
 describe("Testar endpoints relacionados a usuarios, ajustar o time que será atualizado", () => {
   let token;
   const userId = 2;
   beforeAll(async () => {
-    await request(app)
-      .post("/user")
-      .set("Authorization", `Bearer ${token}`)
-      .send({
-        name: "Adm da Silva",
-        email: "admdasilva@teste.com",
-        password: "000000",
-        permission: "Admin",
-        role: "Teste",
-      });
+    await UserService.createUser({
+      name: "Adm da Silva",
+      email: "admdasilva@teste.com",
+      password: "000000",
+      permission: "Admin",
+      role: "Teste",
+    });
 
     const adminLogReq = await request(app)
       .post("/login")
