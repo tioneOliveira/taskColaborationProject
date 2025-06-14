@@ -1,5 +1,5 @@
 const request = require("supertest");
-const app = require("../../app.js");
+const app = require("../../start/app.js");
 const db = require("../database/connection");
 
 describe("Testar endpoints relacionados a times, ajustar o time que será atualizado", () => {

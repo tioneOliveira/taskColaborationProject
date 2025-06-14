@@ -1,12 +1,12 @@
 const cors = require("cors");
 const express = require("express");
 
-const teamRouter = require("./src/routes/private/byDomain/teamRoutes.js");
-const taskRouter = require("./src/routes/private/byDomain/taskRoutes.js");
-const userRouter = require("./src/routes/private/byDomain/userRoutes.js");
-const loginRouter = require("./src/routes/public/loginRoute.js");
+const teamRouter = require("../src/routes/private/byDomain/teamRoutes.js");
+const taskRouter = require("../src/routes/private/byDomain/taskRoutes.js");
+const userRouter = require("../src/routes/private/byDomain/userRoutes.js");
+const loginRouter = require("../src/routes/public/loginRoute.js");
 
-const { swaggerUi, swaggerDocument } = require("./src/config/swagger");
+const { swaggerUi, swaggerDocument } = require("../src/config/swagger.js");
 
 const app = express();
 
