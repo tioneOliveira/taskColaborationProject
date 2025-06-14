@@ -1,0 +1,35 @@
+const request = require("supertest");
+const app = require("../../app.js");
+const db = require("../database/connection.js");
+
+describe("Testa as os endpoinds que relacionam times e tarefas", () => {
+  let token;
+  const userId = 2;
+  const teamId = 1;
+
+  beforeAll(async () => {
+    const res = await request(app)
+      .post("/login")
+      .send({ email: "admdasilva@teste.com", password: "000000" });
+
+    token = res.body.token;
+  });
+  test("Deve dar uma usuario a um time", async () => {
+    const res = await request(app)
+      .put(`/team/${teamId}/user/${userId}`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(201);
+  });
+
+  test("Deve listar os usuarios de um time", async () => {
+    const res = await request(app)
+      .get(`/team/${teamId}/users`)
+      .set("Authorization", `Bearer ${token}`);
+
+    expect(res.statusCode).toBe(200);
+  });
+  afterAll(async () => {
+    db.destroy();
+  });
+});

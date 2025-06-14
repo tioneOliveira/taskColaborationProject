@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../../app.js");
 const db = require("../database/connection");
 
-describe("Testar endpoints relacionados a times, ajustar o time que será atualizado e deletado.", () => {
+describe("Testar endpoints relacionados a times, ajustar o time que será atualizado", () => {
   let token;
   const teamId = 1;
   beforeAll(async () => {
@@ -43,14 +43,6 @@ describe("Testar endpoints relacionados a times, ajustar o time que será atuali
       .put(`/team/${teamId}`)
       .set("Authorization", `Bearer ${token}`)
       .send({ name: "Equipe Atualizada" });
-
-    expect(updateRes.statusCode).toBe(200);
-  });
-
-  test("Deve deletar um time existente", async () => {
-    const updateRes = await request(app)
-      .delete(`/team/${teamId}`)
-      .set("Authorization", `Bearer ${token}`);
 
     expect(updateRes.statusCode).toBe(200);
   });

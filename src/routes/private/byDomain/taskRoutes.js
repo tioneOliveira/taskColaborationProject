@@ -4,13 +4,18 @@ const freeAuth = require("../../../middlewares/freeAuth.js");
 const roleAuth = require("../../../middlewares/roleAuth.js");
 const taskRouter = express.Router();
 
+// Cria uma terefa
 taskRouter.post("/task", freeAuth, roleAuth("Admin"), TaskController.newTask);
+
+// Dá uma tarefa a um time
 taskRouter.put(
   "/team/:team/task/:task",
   freeAuth,
   roleAuth("Admin"),
   TaskController.assignTaskToTeam
 );
+
+// Deleta uma tarefa
 taskRouter.delete(
   "/task/:id",
   freeAuth,
@@ -18,6 +23,7 @@ taskRouter.delete(
   TaskController.deleteTask
 );
 
+// Muda os dados de uma tarefa
 taskRouter.put(
   "/task/:id",
   freeAuth,
@@ -25,12 +31,15 @@ taskRouter.put(
   TaskController.updateTask
 );
 
+// Lista todas as tarefas
 taskRouter.get(
   "/tasks",
   freeAuth,
   roleAuth("Admin", "Maneger", "None"),
   TaskController.listAllTasks
 );
+
+// Lista os dados de uma tarefa especifica
 taskRouter.get(
   "/task/:id",
   freeAuth,

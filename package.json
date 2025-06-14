@@ -5,7 +5,14 @@
   "type": "commonjs",
   "scripts": {
     "start": "nodemon server.js",
-    "test": "nodemon jest"
+    "test": "jest",
+    "test:task": "jest tests/task.test.js",
+    "test:team": "jest tests/team.test.js",
+    "test:user": "jest tests/user.test.js",
+    "test:deletes": "jest tests/deletes.test.js",
+    "test:user_team": "jest tests/user_team.test.js",
+    "test:user_task": "jest tests/user_task.test.js",
+    "test:task_team": "jest tests/task_team.test.js"
   },
   "keywords": [],
   "author": "",

@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../../app.js");
 const db = require("../database/connection.js");
 
-describe("Testar endpoints relacionados a tarefas, ajustar o time que será atualizado e deletado.", () => {
+describe("Testar endpoints relacionados a tarefas, ajustar o time que será atualizado.", () => {
   let token;
   const taskId = 1;
   beforeAll(async () => {
@@ -51,15 +51,6 @@ describe("Testar endpoints relacionados a tarefas, ajustar o time que será atua
         description: "Tarefa Atualizada descrição",
         status: "Late",
       });
-
-    expect(updateRes.statusCode).toBe(200);
-  });
-
-  test("Deve deletar uma tarefa existente", async () => {
-    const updateRes = await request(app)
-      .delete(`/task/${taskId}`)
-      .set("Authorization", `Bearer ${token}`)
-      .send({ name: "Tarefa Atualizada" });
 
     expect(updateRes.statusCode).toBe(200);
   });

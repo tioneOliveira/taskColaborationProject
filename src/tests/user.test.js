@@ -2,7 +2,7 @@ const request = require("supertest");
 const app = require("../../app.js");
 const db = require("../database/connection.js");
 
-describe("Testar endpoints relacionados a usuarios, ajustar o time que será atualizado e deletado.", () => {
+describe("Testar endpoints relacionados a usuarios, ajustar o time que será atualizado", () => {
   let token;
   const userId = 2;
   beforeAll(async () => {
@@ -63,14 +63,6 @@ describe("Testar endpoints relacionados a usuarios, ajustar o time que será atu
         role: "Usuario Atualizado",
         permission: "Admin",
       });
-
-    expect(updateRes.statusCode).toBe(200);
-  });
-
-  test("Deve deletar uma usuario existente", async () => {
-    const updateRes = await request(app)
-      .delete(`/user/${userId}`)
-      .set("Authorization", `Bearer ${token}`);
 
     expect(updateRes.statusCode).toBe(200);
   });
