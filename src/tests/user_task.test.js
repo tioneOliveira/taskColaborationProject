@@ -26,7 +26,6 @@ describe("Testa as os endpoinds que relacionam usuarios e tarefas", () => {
     const res = await request(app)
       .get(`/user/${userId}/tasks`)
       .set("Authorization", `Bearer ${token}`);
-
     expect(res.statusCode).toBe(200);
   });
   afterAll(async () => {

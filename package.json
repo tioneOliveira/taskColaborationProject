@@ -15,8 +15,8 @@
     "test:task_team": "jest tests/task_team.test.js"
   },
   "keywords": [],
-  "author": "",
-  "license": "ISC",
+  "author": "Gabriel Hartmann, Nicolas Donato, Tione Oliveira",
+  "license": "GNU",
   "description": "",
   "dependencies": {
     "bcrypt": "^6.0.0",
