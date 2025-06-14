@@ -98,58 +98,7 @@ npm test
 
 ---
 
-## 📄 Documentação da API
-Acesse via Swagger UI: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
-
-## 📚 Diagramas UML
-
-### 📌 Diagrama de Casos de Uso
-
-```mermaid
-%% Use Case Diagram - Task Collaboration API
-actor "Usuário" as user
-
-usecase "Login" as UC1
-usecase "Criar usuário" as UC2
-usecase "Deletar usuário" as UC3
-usecase "Criar tarefa" as UC4
-usecase "Atualizar tarefa" as UC5
-usecase "Criar time" as UC6
-usecase "Listar tarefas do time" as UC7
-
-user --> UC1
-user --> UC2
-user --> UC3
-user --> UC4
-user --> UC5
-user --> UC6
-user --> UC7
-```
-### 🎯 2. Diagrama de Componentes
-
-```mermaid
-%% Component Diagram - Task Collaboration API
-component "app.js / server.js" as App
-component "loginRoute" as LoginRoute
-component "userRoutes" as UserRoute
-component "taskRoutes" as TaskRoute
-component "teamRoutes" as TeamRoute
-component "config/swagger.js" as Swagger
-database "MySQL (via Knex)" as DB
-component "JWT Auth" as Auth
-
-App --> LoginRoute
-App --> UserRoute
-App --> TaskRoute
-App --> TeamRoute
-App --> Swagger
-LoginRoute --> Auth
-UserRoute --> Auth
-TaskRoute --> Auth
-TeamRoute --> Auth
-App --> DB
-```
-
-
+## 📄 API Documentation
+Access via Swagger UI: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
 
 📄 [License](LICENSE)
