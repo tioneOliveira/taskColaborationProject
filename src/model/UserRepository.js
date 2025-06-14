@@ -1,4 +1,3 @@
-// repositories/UserRepository.js
 const db = require("../database/connection");
 
 class UserRepository {

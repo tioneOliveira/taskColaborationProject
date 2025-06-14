@@ -12,7 +12,10 @@
     "test:deletes": "jest tests/deletes.test.js",
     "test:user_team": "jest tests/user_team.test.js",
     "test:user_task": "jest tests/user_task.test.js",
-    "test:task_team": "jest tests/task_team.test.js"
+    "test:task_team": "jest tests/task_team.test.js",
+    "test:all": "powershell -ExecutionPolicy Bypass -File scripts/AllTests.ps1",
+    "formatApi": "powershell -ExecutionPolicy Bypass -File scripts/FormatApi.ps1",
+    "sql:init": "node utils/resetDB.js"
   },
   "keywords": [],
   "author": "Gabriel Hartmann, Nicolas Donato, Tione Oliveira",
