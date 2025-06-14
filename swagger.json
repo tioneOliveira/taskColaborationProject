@@ -1,0 +1,222 @@
+{
+  "openapi": "3.0.0",
+  "info": {
+    "title": "API - Task Collaboration",
+    "version": "1.0.0",
+    "description": "Documenta\u00e7\u00e3o da API de gerenciamento de tarefas e times.",
+    "contact": {
+      "name": "Equipe de Desenvolvimento",
+      "email": "suporte@taskcollab.local"
+    }
+  },
+  "servers": [
+    {
+      "url": "http://localhost:3000",
+      "description": "Servidor local"
+    }
+  ],
+  "paths": {
+    "/login": {
+      "post": {
+        "summary": "Realiza login do usu\u00e1rio",
+        "tags": [
+          "Login"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "email": {
+                    "type": "string"
+                  },
+                  "password": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Login realizado com sucesso"
+          },
+          "401": {
+            "description": "Credenciais inv\u00e1lidas"
+          }
+        }
+      }
+    },
+    "/user": {
+      "post": {
+        "summary": "Cria um novo usu\u00e1rio",
+        "tags": [
+          "Usu\u00e1rios"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  },
+                  "email": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Usu\u00e1rio criado com sucesso"
+          }
+        }
+      }
+    },
+    "/user/{id}": {
+      "delete": {
+        "summary": "Remove um usu\u00e1rio pelo ID",
+        "tags": [
+          "Usu\u00e1rios"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "204": {
+            "description": "Usu\u00e1rio deletado com sucesso"
+          }
+        }
+      }
+    },
+    "/task": {
+      "post": {
+        "summary": "Cria uma nova tarefa",
+        "tags": [
+          "Tarefas"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "titulo": {
+                    "type": "string"
+                  },
+                  "descricao": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Tarefa criada com sucesso"
+          }
+        }
+      }
+    },
+    "/task/{id}": {
+      "put": {
+        "summary": "Atualiza uma tarefa existente",
+        "tags": [
+          "Tarefas"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "requestBody": {
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object"
+              }
+            }
+          }
+        },
+        "responses": {
+          "200": {
+            "description": "Tarefa atualizada"
+          }
+        }
+      }
+    },
+    "/team": {
+      "post": {
+        "summary": "Cria um novo time",
+        "tags": [
+          "Times"
+        ],
+        "requestBody": {
+          "required": true,
+          "content": {
+            "application/json": {
+              "schema": {
+                "type": "object",
+                "properties": {
+                  "nome": {
+                    "type": "string"
+                  }
+                }
+              }
+            }
+          }
+        },
+        "responses": {
+          "201": {
+            "description": "Time criado com sucesso"
+          }
+        }
+      }
+    },
+    "/team/{id}/tasks": {
+      "get": {
+        "summary": "Lista tarefas associadas a um time",
+        "tags": [
+          "Times"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Lista de tarefas"
+          }
+        }
+      }
+    }
+  }
+}
