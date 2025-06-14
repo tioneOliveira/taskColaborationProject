@@ -4,7 +4,10 @@ const freeAuth = require("../../../middlewares/freeAuth.js");
 const roleAuth = require("../../../middlewares/roleAuth.js");
 const teamRouter = express.Router();
 
+// Cria um time
 teamRouter.post("/team", freeAuth, roleAuth("Admin"), TeamController.newTeam);
+
+// Deleta um time
 teamRouter.delete(
   "/team/:id",
   freeAuth,
@@ -12,18 +15,23 @@ teamRouter.delete(
   TeamController.deleteTeam
 );
 
+// Lista as tarefas em um time
 teamRouter.get(
   "/team/:id/tasks",
   freeAuth,
   roleAuth("Admin", "Maneger"),
   TeamController.listTasksInTeam
 );
+
+// Lista todos os times
 teamRouter.get(
   "/teams",
   freeAuth,
   roleAuth("Admin", "Maneger"),
   TeamController.listAllTeams
 );
+
+// Atualiza os dados de um time
 teamRouter.put(
   "/team/:id",
   freeAuth,
@@ -31,12 +39,15 @@ teamRouter.put(
   TeamController.updateTeam
 );
 
+// Lista os usuarios em um time
 teamRouter.get(
   "/team/:id/users",
   freeAuth,
   roleAuth("Admin", "Maneger", "None"),
   TeamController.listUsersInTeam
 );
+
+// Lista os dados de um time
 teamRouter.get(
   "/team/:id",
   freeAuth,
