@@ -4,7 +4,7 @@
   "main": "server.js",
   "type": "commonjs",
   "scripts": {
-    "start": "nodemon start/server.js",
+    "start": "nodemon --ignore swagger_output.json start/server.js",
     "test:task": "jest tests/task.test.js",
     "test:team": "jest tests/team.test.js",
     "test:user": "jest tests/user.test.js",
@@ -31,6 +31,7 @@
     "mysql2": "^3.14.1",
     "nodemailer": "^7.0.3",
     "nodemon": "^3.1.10",
+    "swagger-autogen": "^2.23.7",
     "swagger-ui-express": "^5.0.1"
   },
   "devDependencies": {
