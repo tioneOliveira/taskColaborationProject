@@ -18,34 +18,11 @@
   "paths": {
     "/login": {
       "post": {
-        "summary": "Realiza login do usu\u00e1rio",
-        "tags": [
-          "Login"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "email": {
-                    "type": "string"
-                  },
-                  "password": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
+        "summary": "Autentica um usu\u00e1rio",
+        "tags": ["Login"],
         "responses": {
           "200": {
-            "description": "Login realizado com sucesso"
-          },
-          "401": {
-            "description": "Credenciais inv\u00e1lidas"
+            "description": "Token JWT retornado"
           }
         }
       }
@@ -53,29 +30,9 @@
     "/user": {
       "post": {
         "summary": "Cria um novo usu\u00e1rio",
-        "tags": [
-          "Usu\u00e1rios"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "nome": {
-                    "type": "string"
-                  },
-                  "email": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
+        "tags": ["User"],
         "responses": {
-          "201": {
+          "200": {
             "description": "Usu\u00e1rio criado com sucesso"
           }
         }
@@ -83,10 +40,8 @@
     },
     "/user/{id}": {
       "delete": {
-        "summary": "Remove um usu\u00e1rio pelo ID",
-        "tags": [
-          "Usu\u00e1rios"
-        ],
+        "summary": "Deleta um usu\u00e1rio",
+        "tags": ["User"],
         "parameters": [
           {
             "name": "id",
@@ -98,49 +53,65 @@
           }
         ],
         "responses": {
-          "204": {
-            "description": "Usu\u00e1rio deletado com sucesso"
+          "200": {
+            "description": "Usu\u00e1rio deletado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualiza dados de um usu\u00e1rio",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usu\u00e1rio atualizado"
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista dados de um usu\u00e1rio",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes do usu\u00e1rio"
           }
         }
       }
     },
     "/task": {
       "post": {
-        "summary": "Cria uma nova tarefa",
-        "tags": [
-          "Tarefas"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "titulo": {
-                    "type": "string"
-                  },
-                  "descricao": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
+        "summary": "Cria uma tarefa",
+        "tags": ["Task"],
         "responses": {
-          "201": {
+          "200": {
             "description": "Tarefa criada com sucesso"
           }
         }
       }
     },
     "/task/{id}": {
-      "put": {
-        "summary": "Atualiza uma tarefa existente",
-        "tags": [
-          "Tarefas"
-        ],
+      "get": {
+        "summary": "Lista uma tarefa espec\u00edfica",
+        "tags": ["Task"],
         "parameters": [
           {
             "name": "id",
@@ -151,45 +122,19 @@
             }
           }
         ],
-        "requestBody": {
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object"
-              }
-            }
-          }
-        },
         "responses": {
           "200": {
-            "description": "Tarefa atualizada"
+            "description": "Detalhes da tarefa"
           }
         }
       }
     },
     "/team": {
       "post": {
-        "summary": "Cria um novo time",
-        "tags": [
-          "Times"
-        ],
-        "requestBody": {
-          "required": true,
-          "content": {
-            "application/json": {
-              "schema": {
-                "type": "object",
-                "properties": {
-                  "nome": {
-                    "type": "string"
-                  }
-                }
-              }
-            }
-          }
-        },
+        "summary": "Cria um time",
+        "tags": ["Team"],
         "responses": {
-          "201": {
+          "200": {
             "description": "Time criado com sucesso"
           }
         }
@@ -197,10 +142,8 @@
     },
     "/team/{id}/tasks": {
       "get": {
-        "summary": "Lista tarefas associadas a um time",
-        "tags": [
-          "Times"
-        ],
+        "summary": "Lista tarefas em um time",
+        "tags": ["Team"],
         "parameters": [
           {
             "name": "id",
@@ -213,7 +156,228 @@
         ],
         "responses": {
           "200": {
+            "description": "Tarefas do time"
+          }
+        }
+      }
+    },
+    "/team/{team}/task/{task}": {
+      "put": {
+        "summary": "Atribui uma tarefa a um time",
+        "tags": ["Task"],
+        "parameters": [
+          {
+            "name": "team",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "task",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarefa atribu\u00edda ao time"
+          }
+        }
+      }
+    },
+    "/tasks": {
+      "get": {
+        "summary": "Lista todas as tarefas",
+        "tags": ["Task"],
+        "responses": {
+          "200": {
             "description": "Lista de tarefas"
+          }
+        }
+      }
+    },
+    "/team/{id}": {
+      "delete": {
+        "summary": "Deleta um time",
+        "tags": ["Team"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Time deletado"
+          }
+        }
+      },
+      "put": {
+        "summary": "Atualiza dados de um time",
+        "tags": ["Team"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Time atualizado"
+          }
+        }
+      },
+      "get": {
+        "summary": "Lista dados de um time",
+        "tags": ["Team"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Detalhes do time"
+          }
+        }
+      }
+    },
+    "/teams": {
+      "get": {
+        "summary": "Lista todos os times",
+        "tags": ["Team"],
+        "responses": {
+          "200": {
+            "description": "Lista de times"
+          }
+        }
+      }
+    },
+    "/team/{id}/users": {
+      "get": {
+        "summary": "Lista usu\u00e1rios em um time",
+        "tags": ["Team"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usu\u00e1rios do time"
+          }
+        }
+      }
+    },
+    "/team/{team}/user/{user}": {
+      "put": {
+        "summary": "Atribui um usu\u00e1rio a um time",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "team",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Usu\u00e1rio atribu\u00eddo ao time"
+          }
+        }
+      }
+    },
+    "/user/{user}/task/{task}": {
+      "put": {
+        "summary": "Atribui uma tarefa a um usu\u00e1rio",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "user",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          },
+          {
+            "name": "task",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarefa atribu\u00edda ao usu\u00e1rio"
+          }
+        }
+      }
+    },
+    "/user/{id}/tasks": {
+      "get": {
+        "summary": "Lista tarefas atribu\u00eddas a um usu\u00e1rio",
+        "tags": ["User"],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "string"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "Tarefas do usu\u00e1rio"
+          }
+        }
+      }
+    },
+    "/users": {
+      "get": {
+        "summary": "Lista todos os usu\u00e1rios",
+        "tags": ["User"],
+        "responses": {
+          "200": {
+            "description": "Lista de usu\u00e1rios"
           }
         }
       }

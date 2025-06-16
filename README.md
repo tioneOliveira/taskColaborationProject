@@ -1,12 +1,10 @@
 # Task Collaboration Project
 
-> Empower teams, streamline tasks, achieve greatness together.
-
 [![Build Status](https://img.shields.io/badge/build-passing-brightgreen)](https://example.com)
 [![License](https://img.shields.io/badge/license-GNU-blue)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
-🚀 Built with ❤️ by Tione Oliveira, Gabriel Hartmann and Nicolas Donato
+🚀 Built with ❤️ by Gabriel Hartmann, Nicolas Donato, and Tione Oliveira
 
 ---
 
@@ -30,11 +28,12 @@
 
 ### Key Features
 
-- ✅ **RESTful API** for creating, updating, deleting, and managing users, tasks, and teams.
-- 🔐 **JWT Authentication with Role-Based Access Control**.
-- 🧩 **Modular structure** using Express.js, Knex, and MySQL.
-- 📦 **Integrated Swagger UI** for live API documentation.
-- ⚙️ **Testable architecture** with Jest and Supertest support.
+- ✅ **RESTful API** for managing users, tasks, and teams
+- 🔐 **JWT Authentication & Role-Based Access Control**
+- 🧩 **Modular architecture** using Express, Controllers, Middleware
+- 📦 **Swagger UI** for live API documentation
+- 🧪 **Integrated testing** with Jest & Supertest
+- 🗂️ **Data integrity** via MySQL and Knex.js
 
 ---
 
@@ -42,10 +41,8 @@
 
 ### Prerequisites
 
-- **Node.js** and **npm**
-- **MySQL** database
-
----
+- Node.js and npm
+- MySQL
 
 ### Installation
 
@@ -55,8 +52,6 @@ cd taskcolaborationproject
 npm install
 ```
 
----
-
 ### Usage
 
 ```bash
@@ -64,8 +59,6 @@ npm start
 ```
 
 Then visit: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
-
----
 
 ### Testing
 
@@ -79,7 +72,8 @@ npm test
 
 Access the live interactive documentation:
 
-[http://localhost:3000/api-docs](http://localhost:3000/api-docs)
+- [Swagger UI](./swagger_ui.html)
+- [OpenAPI JSON](./updated_swagger.json)
 
 ---
 
@@ -91,21 +85,51 @@ Access the live interactive documentation:
 %%{init: {'theme': 'default'}}%%
 graph TD
   user[User]
-  UC1[Login]
-  UC2[Create User]
-  UC3[Delete User]
-  UC4[Create Task]
-  UC5[Update Task]
-  UC6[Create Team]
-  UC7[List Team Tasks]
+  login[Login]
+  createUser[Create User]
+  deleteUser[Delete User]
+  updateUser[Update User]
+  assignUserToTeam[Assign User to Team]
+  assignUserTask[Assign Task to User]
+  listUserTasks[List User Tasks]
+  listUser[List User Info]
+  listAllUsers[List All Users]
 
-  user --> UC1
-  user --> UC2
-  user --> UC3
-  user --> UC4
-  user --> UC5
-  user --> UC6
-  user --> UC7
+  createTeam[Create Team]
+  deleteTeam[Delete Team]
+  updateTeam[Update Team]
+  listTeams[List Teams]
+  listTeamTasks[List Team Tasks]
+  listTeamUsers[List Team Users]
+
+  createTask[Create Task]
+  deleteTask[Delete Task]
+  updateTask[Update Task]
+  listTasks[List All Tasks]
+  getTask[Get Task Details]
+
+  user --> login
+  user --> createUser
+  user --> deleteUser
+  user --> updateUser
+  user --> assignUserToTeam
+  user --> assignUserTask
+  user --> listUserTasks
+  user --> listUser
+  user --> listAllUsers
+
+  user --> createTeam
+  user --> deleteTeam
+  user --> updateTeam
+  user --> listTeams
+  user --> listTeamTasks
+  user --> listTeamUsers
+
+  user --> createTask
+  user --> deleteTask
+  user --> updateTask
+  user --> listTasks
+  user --> getTask
 ```
 
 ---
@@ -115,30 +139,34 @@ graph TD
 ```mermaid
 %%{init: {'theme': 'default'}}%%
 graph TD
-  App["app.js / server.js"]
-  Login[loginRoute]
-  User[userRoutes]
-  Task[taskRoutes]
-  Team[teamRoutes]
-  Swagger[config/swagger.js]
-  Auth[JWT Auth]
+  Server["server.js"]
+  ExpressApp[Express Application]
+  Middleware[freeAuth & roleAuth]
+  Login[loginRouter]
+  User[userRouter]
+  Task[taskRouter]
+  Team[teamRouter]
+  Swagger[swagger.json]
+  Controller[Controllers]
   DB[(MySQL via Knex)]
 
-  App --> Login
-  App --> User
-  App --> Task
-  App --> Team
-  App --> Swagger
-  Login --> Auth
-  User --> Auth
-  Task --> Auth
-  Team --> Auth
-  App --> DB
+  Server --> ExpressApp
+  ExpressApp --> Middleware
+  ExpressApp --> Login
+  ExpressApp --> User
+  ExpressApp --> Task
+  ExpressApp --> Team
+  ExpressApp --> Swagger
+  Login --> Controller
+  User --> Controller
+  Task --> Controller
+  Team --> Controller
+  Controller --> DB
 ```
 
 ---
 
-### 🔁 Sequence Diagram (Create Task)
+### 🔁 Sequence Diagram – Create Task
 
 ```mermaid
 %%{init: {'theme': 'default'}}%%
@@ -153,13 +181,83 @@ sequenceDiagram
   Client->>Express: POST /task (with JWT)
   Express->>freeAuth: Validate JWT
   freeAuth-->>Express: OK
-  Express->>roleAuth: Validate role (Admin)
+  Express->>roleAuth: Check role Admin
   roleAuth-->>Express: OK
   Express->>TaskController: newTask(req, res)
   TaskController->>DB: INSERT INTO tasks
   DB-->>TaskController: Result
-  TaskController-->>Express: res.status(201).json(...)
+  TaskController-->>Express: res.status(201)
   Express-->>Client: 201 Created
+```
+
+---
+
+### 🔁 Sequence Diagram – Assign User to Team
+
+```mermaid
+%%{init: {'theme': 'default'}}%%
+sequenceDiagram
+  actor Admin
+  participant Express
+  participant freeAuth
+  participant roleAuth
+  participant UserController
+  participant DB as MySQL
+
+  Admin->>Express: PUT /team/:team/user/:user
+  Express->>freeAuth: Validate JWT
+  freeAuth-->>Express: OK
+  Express->>roleAuth: Check role Admin
+  roleAuth-->>Express: OK
+  Express->>UserController: assignUserToTeam(req, res)
+  UserController->>DB: UPDATE users SET team_id = ?
+  DB-->>UserController: OK
+  UserController-->>Express: res.status(200)
+  Express-->>Admin: 200 OK
+```
+
+---
+
+### 🗃️ Entity-Relationship Diagram – Logical Overview
+
+```mermaid
+%%{init: {'theme': 'default'}}%%
+erDiagram
+  USERS ||--o{ USER_TASK : assigned_tasks
+  TEAMS ||--o{ TEAM_TASK : manages
+  USERS ||--o{ TEAMS : member_of
+  TASKS ||--o{ USER_TASK : assigned_to_users
+  TASKS ||--o{ TEAM_TASK : belongs_to_team
+
+  USERS {
+    int id PK
+    string name
+    string email
+    string password
+    string role
+    string permission
+    int team_id FK
+  }
+  TASKS {
+    int id PK
+    string title
+    string description
+    string status
+    timestamp start
+    timestamp deadline
+  }
+  TEAMS {
+    int id PK
+    string name
+  }
+  USER_TASK {
+    int user_id FK
+    int task_id FK
+  }
+  TEAM_TASK {
+    int team_id FK
+    int task_id FK
+  }
 ```
 
 ---
