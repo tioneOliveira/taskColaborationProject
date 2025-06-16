@@ -27,7 +27,7 @@ taskRouter.delete(
 taskRouter.put(
   "/task/:id",
   freeAuth,
-  roleAuth("Admin", "Maneger"),
+  roleAuth("Admin", "Manager"),
   TaskController.updateTask
 );
 
@@ -35,7 +35,7 @@ taskRouter.put(
 taskRouter.get(
   "/tasks",
   freeAuth,
-  roleAuth("Admin", "Maneger", "None"),
+  roleAuth("Admin", "Manager", "None"),
   TaskController.listAllTasks
 );
 
@@ -43,7 +43,7 @@ taskRouter.get(
 taskRouter.get(
   "/task/:id",
   freeAuth,
-  roleAuth("Admin", "Maneger", "None"),
+  roleAuth("Admin", "Manager", "None"),
   TaskController.listTask
 );
 

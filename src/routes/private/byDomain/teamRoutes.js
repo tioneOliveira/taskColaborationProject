@@ -19,7 +19,7 @@ teamRouter.delete(
 teamRouter.get(
   "/team/:id/tasks",
   freeAuth,
-  roleAuth("Admin", "Maneger"),
+  roleAuth("Admin", "Manager", "None"),
   TeamController.listTasksInTeam
 );
 
@@ -27,7 +27,7 @@ teamRouter.get(
 teamRouter.get(
   "/teams",
   freeAuth,
-  roleAuth("Admin", "Maneger"),
+  roleAuth("Admin", "Manager", "None"),
   TeamController.listAllTeams
 );
 
@@ -35,7 +35,7 @@ teamRouter.get(
 teamRouter.put(
   "/team/:id",
   freeAuth,
-  roleAuth("Admin", "Maneger"),
+  roleAuth("Admin", "Manager"),
   TeamController.updateTeam
 );
 
@@ -43,7 +43,7 @@ teamRouter.put(
 teamRouter.get(
   "/team/:id/users",
   freeAuth,
-  roleAuth("Admin", "Maneger", "None"),
+  roleAuth("Admin", "Manager", "None"),
   TeamController.listUsersInTeam
 );
 
@@ -51,7 +51,7 @@ teamRouter.get(
 teamRouter.get(
   "/team/:id",
   freeAuth,
-  roleAuth("Admin", "Maneger", "None"),
+  roleAuth("Admin", "Manager", "None"),
   TeamController.listTeam
 );
 

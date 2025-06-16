@@ -15,7 +15,8 @@
     "format": "node src/utils/resetDB.js",
     "populatejs": "node src/utils/populateDatabase.js",
     "test:all": "powershell -ExecutionPolicy Bypass -File scripts/AllTests.ps1",
-    "populate": "powershell -ExecutionPolicy Bypass -File scripts/Populate.ps1"
+    "populate": "powershell -ExecutionPolicy Bypass -File scripts/Populate.ps1",
+    "initialize": "powershell -ExecutionPolicy Bypass -File scripts/TestPopulateAndIntialize.ps1"
   },
   "keywords": [],
   "author": "Gabriel Hartmann, Nicolas Donato, Tione Oliveira",

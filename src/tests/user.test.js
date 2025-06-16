@@ -1,7 +1,7 @@
 const request = require("supertest");
 const app = require("../../start/app.js");
 const db = require("../database/connection.js");
-const UserService = require("../controllers/User/UserServices");
+const UserService = require("../controllers/User/UserServices.js");
 
 describe("Testar endpoints relacionados a usuarios, ajustar o time que será atualizado", () => {
   let token;

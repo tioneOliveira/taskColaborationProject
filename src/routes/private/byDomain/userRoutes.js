@@ -27,7 +27,7 @@ userRouter.delete(
 userRouter.put(
   "/user/:id",
   freeAuth,
-  roleAuth("Admin", "Maneger"),
+  roleAuth("Admin", "Manager"),
   UserController.updateUser
 );
 
@@ -35,7 +35,7 @@ userRouter.put(
 userRouter.put(
   "/user/:user/task/:task",
   freeAuth,
-  roleAuth("Admin", "Maneger"),
+  roleAuth("Admin", "Manager"),
   UserController.assignUserWithTask
 );
 
@@ -43,7 +43,7 @@ userRouter.put(
 userRouter.get(
   "/user/:id/tasks",
   freeAuth,
-  roleAuth("Admin", "Maneger", "None"),
+  roleAuth("Admin", "Manager", "None"),
   UserController.listTasksAssignedToUser
 );
 
@@ -51,7 +51,7 @@ userRouter.get(
 userRouter.get(
   "/user/:id",
   freeAuth,
-  roleAuth("Admin", "Maneger", "None"),
+  roleAuth("Admin", "Manager", "None"),
   UserController.listUser
 );
 
@@ -59,7 +59,7 @@ userRouter.get(
 userRouter.get(
   "/users",
   freeAuth,
-  roleAuth("Admin", "Maneger", "None"),
+  roleAuth("Admin", "Manager", "None"),
   UserController.listAllUsers
 );
 
