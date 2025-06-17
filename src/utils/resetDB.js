@@ -18,7 +18,7 @@ async function runSqlFile(filePath) {
 
     await db.destroy();
   } catch (err) {
-    console.error("❌ Erro ao executar SQL:", err);
+    console.error("Erro ao executar SQL:", err);
     process.exit(1);
   }
 }
