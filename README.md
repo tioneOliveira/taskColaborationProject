@@ -41,7 +41,7 @@
 
 ### Prerequisites
 
-- Node.js and npm
+- Node.js and npm 
 - MySQL
 
 ### Installation
@@ -54,8 +54,41 @@ npm install
 
 ### Usage
 
+
+
 ```bash
-npm start
+
+First of all, you will need to configure .evn file withing the project root directory . It should look something like this:
+
+```
+LISTENING_TO_PORT =  your_port
+DATABASE_CLIENT = 'mysql2'
+DATABASE_HOST = 'localhost (or desired host)'
+DATABASE_USER = 'your_db_user (or root, by mysql12 default) '
+DATABASE_PASSWORD = 'your_db_password'
+DATABASE_NAME = 'your_db_name'
+```
+If you want to set up the mailer functionallity, you will have to register a e-mail and password in the .env file:
+Add the following line in the .env, otherwise not that it will fail the automated test ---> test:user_task.
+```
+EMAIL_USER= 'your_mail_server_adress'
+EMAIL_PASSWORD= 'your_mail_server_specific_password'
+EMAIL_SERVICE= 'your_mail_provider'
+```
+And you must set up a JWT secrect key, to generate one you simply execute this code in any terminal where node.js is available:
+```
+node -e "console.log(require('crypto').randomBytes(32).toString('hex'))"
+
+```
+```
+JWT_SECRET_KEY = 'your_jwt_secrect_key'
+
+```
+
+1 - Set up a database using mysql
+2 - Connect with the database in the matching port where you will run the aplication.
+
+npm run initilize
 ```
 
 Then visit: [http://localhost:3000/api-docs](http://localhost:3000/api-docs)
