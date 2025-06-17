@@ -93,9 +93,6 @@ run the initilization command:
 npm run initilize
 ```
 
-
-Then visit: http://localhost:[your_port]/api-docs) for swagger documentation of the endpoints.
-
 ### Testing
 
 The test are automatically conducted when running the ```npm initialize``` command.
@@ -105,10 +102,7 @@ The test are automatically conducted when running the ```npm initialize``` comma
 
 ## API Documentation
 
-Access the live interactive documentation:
-
-- [Swagger UI](./swagger_ui.html)
-- [OpenAPI JSON](./updated_swagger.json)
+Visit: http://localhost:[your_port]/api-docs) for swagger documentation.
 
 ---
 
