@@ -18,6 +18,7 @@
   - [Testing](#testing)
 - [API Documentation](#api-documentation)
 - [UML Diagrams](#uml-diagrams)
+- [Frontend Dashboard](#frontend-dashboard)
 - [License](#license)
 
 ---
@@ -47,15 +48,12 @@
 ### Installation
 
 ```bash
-git clone https://github.com/username/taskcolaborationproject.git
+git clone https://github.com/tioneOliveira/taskcolaborationproject.git
 cd taskcolaborationproject
 npm install
 ```
 
 ### Usage
-
-
-
 
 First of all, you will need to configure .evn file withing the project root directory . It should look something like this:
 
@@ -68,7 +66,7 @@ DATABASE_PASSWORD = 'your_db_password'
 DATABASE_NAME = 'your_db_name'
 ```
 If you want to set up the mailer functionallity, you will have to register a e-mail and password in the .env file:
-Add the following line in the .env, otherwise not that it will fail the automated test ---> test:user_task.
+Add the following line in the .env, otherwise note that it will fail the automated test ---> test:user_task.
 
 ```bash
 EMAIL_USER= 'your_mail_server_adress'
@@ -86,8 +84,9 @@ JWT_SECRET_KEY = 'your_jwt_secrect_key'
 
 ```
 
-1 - Set up your database using mysql12
-2 - Connect with the database in the matching port where you will run the aplication.
+Set up your database using mysql12 
+
+Connect with the database in the matching port where you will run the aplication.
 
 run the initilization command:
 
@@ -95,24 +94,16 @@ run the initilization command:
 npm run initilize
 ```
 
-PLACEHOLDER
-
-Then visit: [http://localhost:[your_port]/api-docs] for swagger documentation of the endpoints.
-
 ### Testing
 
-```bash
-PLACEHOLDER
-```
+The test are automatically conducted when running the ```npm initialize``` command.
+
 
 ---
 
 ## API Documentation
 
-Access the live interactive documentation:
-
-- [Swagger UI](./swagger_ui.html)
-- [OpenAPI JSON](./updated_swagger.json)
+Visit: http://localhost:[your_port]/api-docs) for swagger documentation.
 
 ---
 
@@ -301,6 +292,21 @@ erDiagram
 
 ---
 
+## 🎨 Frontend Dashboard
+
+A dashboard made for navegating this api!
+
+```bash
+git clone https://github.com/NicolasDonatoSilveira/taskproj.git
+cd taskproj
+npm install
+npm run dev
+```
+Log in with an administrator:
+```bash
+Email: tionefilho@gmail.com
+Password: tione123
+```
 ## 📄 License
 
 This project is licensed under the **GNU License**.
