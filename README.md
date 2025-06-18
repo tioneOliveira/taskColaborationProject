@@ -302,7 +302,7 @@ cd taskproj
 npm install
 npm run dev
 ```
-Log in whith the administrator
+Log in with an administrator:
 ```bash
 Email: tionefilho@gmail.com
 Password: tione123
