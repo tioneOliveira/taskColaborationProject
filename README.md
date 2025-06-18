@@ -304,7 +304,7 @@ npm install
 npm run dev
 ```
 
-### 🎨 ADMIN LOGIN
+### Admin Login
 Log in with an administrator:
 ```bash
 Email: admin@mail.com
