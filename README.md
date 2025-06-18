@@ -18,7 +18,7 @@
   - [Testing](#testing)
 - [API Documentation](#api-documentation)
 - [UML Diagrams](#uml-diagrams)
-- [Frontend Dashboard](#frontend-dashboard)
+- [Frontend Dashboard](#dashboard)
 - [License](#license)
 
 ---
@@ -292,21 +292,24 @@ erDiagram
 
 ---
 
-## 🎨 Frontend Dashboard
+## Dashboard
 
 A dashboard made for navegating this api!
 
+### 🎨 Frontend Dashboard Installation
 ```bash
 git clone https://github.com/NicolasDonatoSilveira/taskproj.git
 cd taskproj
 npm install
 npm run dev
 ```
+
+### 🎨 ADMIN LOGIN
 Log in with an administrator:
 ```bash
 Email: admin@mail.com
 Password: admin123
 ```
-## 📄 License
+## License
 
 This project is licensed under the **GNU License**.
