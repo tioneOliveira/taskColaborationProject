@@ -296,6 +296,8 @@ erDiagram
 
 A dashboard made for navegating this api!
 
+[Dashboard repository](https://github.com/NicolasDonatoSilveira/taskproj)
+
 ### 🎨 Frontend Dashboard Installation
 ```bash
 git clone https://github.com/NicolasDonatoSilveira/taskproj.git
