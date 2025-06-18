@@ -105,7 +105,7 @@ The test are automatically conducted when running the ```npm run initialize``` c
 
 ## API Documentation
 
-Visit: http://localhost:[your_port]/api-docs) for swagger documentation.
+Visit: http://localhost:[your_port]/api-docs for swagger documentation.
 
 ---
 
