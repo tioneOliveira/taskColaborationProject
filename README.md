@@ -18,6 +18,7 @@
   - [Testing](#testing)
 - [API Documentation](#api-documentation)
 - [UML Diagrams](#uml-diagrams)
+- [Frontend Dashboard](#frontend-dashboard)
 - [License](#license)
 
 ---
@@ -47,7 +48,7 @@
 ### Installation
 
 ```bash
-git clone https://github.com/username/taskcolaborationproject.git
+git clone https://github.com/tioneOliveira/taskcolaborationproject.git
 cd taskcolaborationproject
 npm install
 ```
@@ -291,6 +292,21 @@ erDiagram
 
 ---
 
+## 🎨 Frontend Dashboard
+
+A dashboard made for navegating this api!
+
+```bash
+git clone https://github.com/NicolasDonatoSilveira/taskproj.git
+cd taskproj
+npm install
+npm run dev
+```
+Log in whith the administrator
+```bash
+Email: tionefilho@gmail.com
+Password: tione123
+```
 ## 📄 License
 
 This project is licensed under the **GNU License**.
