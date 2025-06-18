@@ -304,8 +304,8 @@ npm run dev
 ```
 Log in with an administrator:
 ```bash
-Email: tionefilho@gmail.com
-Password: tione123
+Email: admin@mail.com
+Password: admin123
 ```
 ## 📄 License
 
