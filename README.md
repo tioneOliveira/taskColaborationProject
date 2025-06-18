@@ -4,6 +4,8 @@
 [![License](https://img.shields.io/badge/license-GNU-blue)](LICENSE)
 [![JavaScript](https://img.shields.io/badge/language-JavaScript-yellow)](https://developer.mozilla.org/en-US/docs/Web/JavaScript)
 
+[Full Documentation on Notion](https://www.notion.so/team/1f984044-fe55-8145-b6ef-00429f9b7e08/join)
+
 🚀 Built with ❤️ by Gabriel Hartmann, Nicolas Donato, and Tione Oliveira
 
 ---
@@ -309,7 +311,7 @@ npm run dev
 ### Admin Login
 Log in with an administrator:
 ```bash
-Email: admin@mail.com
+Email: admin@email.com
 Password: admin123
 ```
 ## License
