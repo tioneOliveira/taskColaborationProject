@@ -5,6 +5,13 @@ const db = require("../database/connection.js");
 
 async function populate() {
   await UserService.createUser({
+    name: "Admin da Silva",
+    role: "Admin",
+    password: "admin123",
+    email: "admin@email.com",
+    permission: "Admin",
+  });
+  await UserService.createUser({
     name: "Tione Oliveira",
     role: "CEO",
     password: "tione123",
