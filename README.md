@@ -98,7 +98,7 @@ npm run initilize
 
 ### Testing
 
-The test are automatically conducted when running the ```npm initialize``` command.
+The test are automatically conducted when running the ```npm run initialize``` command.
 
 
 ---
